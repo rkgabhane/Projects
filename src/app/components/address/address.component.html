@@ -1,0 +1,12 @@
+
+ <fieldset [formGroupName]="controlKey">
+  <legend>{{label}}</legend>
+  <div class="control">
+   <label for="street1" class="control-label">Street: </label>
+   <input type="text" formControlName="street" required="true">
+  </div>
+  <div class="control">
+   <label for="zipCode" class="control-label">Zip Code: </label>
+   <input type="text" formControlName="zipCode">
+  </div>
+ </fieldset>

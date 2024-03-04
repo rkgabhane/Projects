@@ -1,0 +1,248 @@
+import {
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  ViewChild,
+  ViewChildren,
+  ContentChild,
+  ContentChildren,
+  AnimationMetadata,
+  QueryList
+} from '@angular/core';
+import { ExampleService } from './example.service';
+import { SomeProvider } from './some-provider.service';
+
+@Component({
+  selector: 'app-example', 
+  // Specifies the HTML selector for the component.
+  // Example: selector: 'app-example'
+
+  templateUrl: './example.component.html', 
+  // URL of the component's template file.
+  // Example: templateUrl: './example.component.html'
+
+  styleUrls: ['./example.component.css'], 
+  // Array of URLs for stylesheets.
+  // Example: styleUrls: ['./example.component.css']
+
+  providers: [ExampleService], 
+  // Array of dependency injection providers.
+  // Example: providers: [ExampleService]
+
+  inputs: ['inputProperty'], 
+  // Array of property names that can be bound to input properties using property binding.
+  // Example: inputs: ['inputProperty']
+
+  outputs: ['outputEvent'], 
+  // Array of event names that can be bound to output events using event binding.
+  // Example: outputs: ['outputEvent']
+
+  encapsulation: ViewEncapsulation.ShadowDom, 
+  // ViewEncapsulation.None: Styles are applied globally, affecting all components.
+  // ViewEncapsulation.Emulated: Styles are encapsulated to the component, simulating shadow DOM.
+  // ViewEncapsulation.ShadowDom: Uses the browser's native shadow DOM for style encapsulation.
+
+  changeDetection: ChangeDetectionStrategy.OnPush, 
+  // ChangeDetectionStrategy.Default: Angular checks for changes in all components on every check cycle.
+  // ChangeDetectionStrategy.OnPush: Angular only checks for changes when input properties change or when explicitly triggered.
+
+  animations: [
+    // An array of animation metadata objects defining component animations.
+    // Example: [{ trigger: 'fadeIn', ... }]
+  ],
+
+  entryComponents: [
+    // An array of components that are dynamically created (e.g., using ComponentFactoryResolver).
+    // Useful when creating components programmatically.
+    // Example: [DynamicComponent]
+  ],
+
+  interpolation: ['{{', '}}'], 
+  // Custom interpolation markers for templates.
+  // Example: ['${', '}']
+
+  moduleId: module.id, 
+  // Module ID for module-relative URLs.
+  // This allows the use of relative paths in templateUrl and styleUrls.
+  // Example: moduleId: module.id
+
+  queries: {
+    contentChild: new ContentChild(ChildDirective), 
+    // Configures a query for the first occurrence of ContentChild.
+    // Example: @ContentChild(ChildDirective) contentChild: ChildDirective;
+
+    contentChildren: new ContentChildren(ChildDirective), 
+    // Configures a query for all occurrences of ContentChildren.
+    // Example: @ContentChildren(ChildDirective) contentChildren: QueryList<ChildDirective>;
+
+    viewChild: new ViewChild(ChildDirective), 
+    // Configures a query for the first occurrence of ViewChild.
+    // Example: @ViewChild(ChildDirective) viewChild: ChildDirective;
+
+    viewChildren: new ViewChildren(ChildDirective), 
+    // Configures a query for all occurrences of ViewChildren.
+    // Example: @ViewChildren(ChildDirective) viewChildren: QueryList<ChildDirective>;
+  },
+
+  preserveWhitespaces: false, 
+  // Determines whether to preserve or remove whitespace in component templates.
+  // Example: preserveWhitespaces: false
+
+  viewProviders: [
+    {
+      provide: SomeProvider,
+      useFactory: () => {
+        // Custom logic to create an instance of SomeProvider.
+        return new SomeProvider(/* constructor arguments if any */);
+      },
+      deps: [] 
+      // An array of dependencies required by the useFactory function.
+      // Example: deps: [DependencyService]
+    }
+  ],
+
+  template: '<div>Inline template</div>', 
+  // Inline template (used instead of templateUrl).
+  // Example: template: '<div>Inline template</div>'
+
+  styles: ['div { color: red; }'], 
+  // Inline styles (used instead of styleUrls).
+  // Example: styles: ['div { color: red; }']
+})
+export class ExampleComponent {
+  // Component class definition
+
+  // Additional properties for demo purposes
+  inputProperty: string;
+  outputEvent: EventEmitter<string>;
+  childDirectives: QueryList<ChildDirective>;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@NgModule({
+  declarations: [],    // Components, directives, and pipes
+  imports: [],         // Other modules to import
+  exports: [],         // Components, directives, and pipes to export
+  providers: [],       // Services and other injectables
+  bootstrap: [],       // The root component(s) for bootstrapping
+})
+export class AppModule1 { }
+
+
+import { Directive, Input, Output, EventEmitter } from '@angular/core';
+
+@Directive({
+  selector: '[appExample]',
+  inputs: ['inputProperty: externalInput'],
+  outputs: ['outputEvent'],
+  host: {
+    '(click)': 'onClick()',
+    '[class.active]': 'isActive'
+  },
+  providers: [ExampleService],
+  exportAs: 'appExample',
+  queries: {
+    contentChild: new ContentChild('contentChild')
+  }
+})
+export class ExampleDirective {
+  @Input() inputProperty: string;
+  @Output() outputEvent = new EventEmitter<void>();
+  isActive: boolean = false;
+
+  constructor(private exampleService: ExampleService) {}
+
+  onClick() {
+    this.outputEvent.emit();
+  }
+}
+
+
+
+
+
+
+
+@Component:
+
+Used to define a component in Angular.
+@Directive:
+
+Used to define a directive in Angular.
+@Pipe:
+
+Used to define a pipe in Angular for transforming data.
+@Injectable:
+
+Used to declare a service in Angular that can be injected into components, directives, or other services.
+@Input:
+
+Used to define an input property in a component.
+@Output:
+
+Used to define an output property in a component.
+@HostListener:
+
+Used to subscribe to events of the host element in a directive.
+@HostBinding:
+
+Used to bind a property of the host element in a directive.
+@ViewChild:
+
+Used to get a reference to a child component or directive.
+@ContentChild:
+
+Used to get a reference to a projected content child component or directive.
+@NgModule:
+
+Used to define an Angular module and its metadata.
+@Inject:
+
+Used to specify a provider for a dependency injection token.
+@Attribute:
+
+Used to get the value of an attribute on an element.
+@Self:
+
+Used to limit the search for providers to the current injector in dependency injection.
+@Optional:
+
+Used to allow for a null or undefined value in dependency injection.
+@Host:
+
+Used to include the host component in the search for providers in dependency injection.
+@SkipSelf:
+
+Used to skip the current injector in the search for providers in dependency injection.
+@IterableDiffer:
+
+Used in custom structural directives to iterate over collections.
+@TemplateRef:
+
+Represents the template of a view.
+@ViewChildren:
+
+Used to get a QueryList of elements or directives from the view DOM.

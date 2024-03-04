@@ -1,0 +1,26 @@
+<div class="container">
+ <form [formGroup]="user" class="main" (ngSubmit)="submitForm()">
+  <div>
+   <label>Display Name:</label>
+   <input type="text" formControlName="displayName">
+  </div>
+  <div *ngFor="let address of addressArray">
+   <app-address [label]="address.label" [controlKey]="address.controlKey"></app-address>
+  </div>
+  <div class="action-button">
+   <input type="submit" value="Submit">
+   <input type="button" value="Add Address" (click)="showModel=true;">
+  </div>
+ </form>
+</div>
+
+<div class="overlay" *ngIf="showModel">
+ <div class="modal">
+  <p>Please enter address title</p>
+  <input type="text" [(ngModel)]="newAddress">
+  <div class="action-button">
+  <input type="button" value="Add" (click)="showModel=!showModel;addAddress()">
+  <input type="button" value="Close" (click)="showModel=!showModel">
+  </div>
+ </div>
+</div>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <style>
+.wrapper {
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+top:300px;
+}
+.confetti-button{
+display: none;
+font-size: 1.15rem;
+font-weight: 700;
+padding: 0.75em 1.5em;
+border: 0;
+border-radius: 100vmax;
+background: linear-gradient(90deg, #a8ff78 50%, #78ffd6);
+cursor: pointer;
+}
+.scale {
+  animation: scaleUp 0.2s linear forwards, transform 0.2s linear;
+}
+
+@keyframes scaleUp {
+  0%, 100% { transform: scale(1); }
+  25%, 75% { transform: scale(0.8); }
+}
+
+
+.wrapper canvas {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+pointer-events: none;
+}
+ </style>
+ <title>Document</title>
+</head>
+<body>
+ <div class="wrapper">
+
+  <button class="confetti-button">Click me</button>
+  
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"> </script>
+ <script>
+const confettiBtn = document.querySelector(".confetti-button");
+
+// confettiBtn.addEventListener("click", () => {
+
+// });
+window.setInterval(()=>{
+  const canvas= document.createElement("canvas"); 
+const container = document.querySelector(".wrapper");
+confettiBtn.classList.add('scale');
+// setTimeout(()=>{
+//  confettiBtn.classList.remove('scale');
+// },400)
+canvas.width = 800;
+canvas.height = 800;
+container.appendChild(canvas);
+const confetti_btn = confetti.create(canvas);
+
+ confetti_btn().then(() => canvas.remove());
+},10)
+ </script>
+</body>
+</html>qq
+
